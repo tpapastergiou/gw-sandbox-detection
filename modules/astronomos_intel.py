@@ -65,7 +65,7 @@ def process_file(input_path: str, output_path: str) -> None:
             time.sleep(ASTRONOMOS_QUERY_DELAY)
 
             if record.get("has_ptr"):
-                intel = run_astronomos(record.ptr)
+                intel = run_astronomos(record["ptr"])
                 record["astronomos_el_ptr"] = intel
 
             fout.write(json.dumps(record, ensure_ascii=False) + "\n")
@@ -75,4 +75,6 @@ if __name__ == "__main__":
     parser.add_argument("input_file", help="Path to input file containing IPs (one per line)")
     parser.add_argument("output_file", help="Path to output file for JSONL results")
     args = parser.parse_args()
+    print(f"Starting {args.input_file}")
     process_file(args.input_file, args.output_file)
+    print(f"Finished {args.input_file}")
